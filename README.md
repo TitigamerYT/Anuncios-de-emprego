@@ -70,21 +70,33 @@ Cada oferta poderá ser inicialmente representada através de um **tuplo**, cont
     localização,
     área profissional,
     empresa,
-    requisitos
+    requisitos,
+    descrição,
+    fonte,
+    data de publicação,
+    link
 )
 ```
+
+Os requisitos são guardados num tuplo dentro da oferta, porque cada vaga pode ter vários requisitos.
 
 Exemplo:
 
 ```text
 (
-    "Programador Python",
+    "Programador Python júnior",
     "Beja",
     "Informática",
-    "Empresa Tech",
-    "Conhecimentos de Python e SQL"
+    "TechSul",
+    ("Licenciatura em Engenharia Informática", "Python e SQL", "Git"),
+    "Desenvolvimento de aplicações internas e automatização de processos.",
+    "Site de empregos A",
+    "20/10/2026",
+    "https://exemplo.com/oferta/1"
 )
 ```
+
+Os dados de exemplo encontram-se no ficheiro `dados.py`.
 
 A estrutura dos dados poderá ser alterada ou melhorada nas fases seguintes do projeto, de acordo com a evolução da aplicação.
 
@@ -97,7 +109,7 @@ A solução será organizada em diferentes componentes, de forma a separar respo
 Estrutura prevista:
 
 ```text
-agregador_empregos/
+Anuncios-de-emprego/
 │
 ├── main.py
 ├── empregos.py
@@ -109,7 +121,7 @@ agregador_empregos/
 
 ### `main.py`
 
-Responsável pelo menu principal e pela interação com o utilizador.
+Ponto de entrada da aplicação. Responsável pela interface gráfica e pela interação com o utilizador.
 
 ### `empregos.py`
 
@@ -158,7 +170,9 @@ Consulta dos detalhes da oferta
 A aplicação será desenvolvida utilizando:
 
 - **Python 3**
+- **Tkinter** (interface gráfica, incluída na biblioteca-padrão do Python)
 - **Git**
+- **Figma** (desenho dos ecrãs)
 
 Serão utilizadas bibliotecas da biblioteca padrão do Python sempre que possível.
 
@@ -184,22 +198,26 @@ python main.py
 
 ## 10. Exemplo de utilização
 
-Ao iniciar a aplicação, será apresentado um menu semelhante a:
+A aplicação terá uma **interface gráfica para computador**, desenvolvida com Tkinter. Os ecrãs foram desenhados previamente no Figma.
 
-```text
-======================================
-     AGREGADOR DE ANÚNCIOS DE EMPREGO
-======================================
+### Ecrã inicial
 
-1 - Listar ofertas de emprego
-2 - Pesquisar por cargo
-3 - Pesquisar por localização
-4 - Pesquisar por área profissional
-5 - Ver detalhes de uma oferta
-0 - Sair
-```
+- Caixa de pesquisa por **cargo**;
+- Filtros por **localização** e por **área**;
+- Botão **Pesquisar**;
+- Lista de **ofertas recentes**, cada uma com cargo, empresa, localização e área;
+- Botão **Ver detalhes** para cada oferta.
 
-O utilizador poderá escolher uma das opções e consultar ou pesquisar as ofertas disponíveis.
+### Ecrã de detalhe da vaga
+
+- Cargo e empresa;
+- Localização, área, fonte e data de publicação;
+- Descrição da oferta;
+- Lista de requisitos;
+- Botão **Abrir anúncio original**, que abre o link da oferta no browser;
+- Ligação **Voltar às ofertas**.
+
+O utilizador pesquisa ou filtra as ofertas no ecrã inicial e consulta a informação completa de cada vaga no ecrã de detalhe.
 
 ---
 
@@ -213,6 +231,14 @@ Nesta fase inicial do projeto:
 - Os mecanismos de validação, exceções e testes serão aprofundados nas fases seguintes.
 
 Estas funcionalidades serão desenvolvidas e integradas durante a evolução do projeto.
+
+### Riscos e dificuldades previstas
+
+- **Alterações nos sites de origem:** se um site mudar a estrutura das páginas, a recolha de anúncios pode deixar de funcionar;
+- **Bloqueio de pedidos:** alguns sites podem limitar ou bloquear pedidos automáticos, pelo que serão usadas pausas entre pedidos;
+- **Dados incompletos:** alguns anúncios podem não ter localização, área ou requisitos, e a aplicação terá de lidar com isso;
+- **Dados diferentes entre fontes:** cada site apresenta a informação de forma diferente, sendo necessário uniformizá-la;
+- **Sites indisponíveis:** será guardada uma cópia dos dados recolhidos, para a aplicação funcionar mesmo sem acesso aos sites.
 
 ---
 
