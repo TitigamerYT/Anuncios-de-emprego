@@ -1,23 +1,12 @@
-"""
-main.py
+# main.py
+# Ponto de entrada da aplicação (interface gráfica com Tkinter).
 
-Ponto de entrada da aplicação.
-Responsável pela interface gráfica (Tkinter) e pela interação com o utilizador.
-
-Ecrãs previstos:
-    1. Ecrã inicial  - pesquisa por cargo, filtros por localização e área,
-                       lista de ofertas recentes
-    2. Detalhe da vaga - descrição, requisitos, fonte e link para o anúncio original
-"""
-
-import dados
-import empregos
+from dados import ofertas
 import pesquisa
 
 
 def main():
-    """Inicia a aplicação."""
-    # TODO: criar a janela principal com Tkinter
+    """Abre a janela principal da aplicação."""
     pass
 
 

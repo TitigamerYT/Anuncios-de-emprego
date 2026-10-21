@@ -2,62 +2,84 @@
 
 Projeto de Linguagens de Programação 2026/2027 — Grupo 22
 
-- Tiago Marcos 25252
-- Luís Belo 25793
+| Nome | Número |
+|---|---|
+| Tiago Marcos | 25252 |
+| Luís Belo | 25793 |
 
-## Descrição
+## O problema
 
-As ofertas de emprego estão espalhadas por vários sites, o que torna a procura lenta.
-A nossa aplicação junta anúncios de várias fontes num só sítio, onde é possível
-pesquisar por cargo, filtrar por localização e área, e ver os detalhes e requisitos de cada vaga.
+As ofertas de emprego estão espalhadas por várias plataformas. Procurar em todas é lento
+e repetitivo, e é difícil comparar ofertas entre si.
 
-Os anúncios vão ser recolhidos da Web com Python (scraping) e guardados em ficheiro,
-para a aplicação funcionar mesmo sem acesso aos sites.
+## A solução
+
+Uma aplicação em Python que junta, num só sítio, anúncios de emprego recolhidos
+automaticamente de vários sites (scraping). O utilizador pode:
+
+- **Pesquisar** ofertas pelo cargo pretendido;
+- **Filtrar** por localização e por área profissional;
+- **Consultar** os detalhes, os requisitos e a fonte de cada oferta.
 
 ## Interface
 
-Interface gráfica para PC, feita com Tkinter. Os ecrãs foram desenhados no Figma:
+Interface gráfica para PC, feita com Tkinter. Os ecrãs foram desenhados primeiro no Figma.
 
-- **Ecrã inicial** – pesquisa por cargo, filtros por localização e área, e lista de ofertas.
-- **Detalhe da vaga** – descrição, requisitos, fonte, data e botão para abrir o anúncio original.
+| Ecrã de pesquisa | Detalhe da vaga |
+|---|---|
+| ![Ecrã de pesquisa](docs/ecra_pesquisa.png) | ![Detalhe da vaga](docs/ecra_detalhe.png) |
 
-## Dados
+## Representação dos dados
 
-Cada oferta é um tuplo e todas as ofertas ficam numa lista:
+Cada oferta é um **tuplo**, porque os dados não mudam depois de recolhidos e a ordem dos
+campos é sempre a mesma:
 
 ```python
-("Programador Python júnior", "Beja", "Informática", "TechSul",
- ("Python e SQL", "Git"), "Desenvolvimento de aplicações...",
- "Site de empregos A", "20/10/2026", "https://exemplo.com/oferta/1")
+(cargo, localizacao, area, empresa, requisitos, fonte)
 ```
 
-Ordem dos campos: cargo, localização, área, empresa, requisitos, descrição, fonte, data, link.
+Os requisitos são também um tuplo, porque uma vaga pode ter vários.
+Todas as ofertas ficam numa **lista**, que é percorrida com ciclos `for` e filtrada com `if`.
 
-## Organização
+```python
+ofertas = [
+    ("Programador Python júnior", "Beja", "Informática", "TechSul",
+     ("Python", "SQL", "Git"), "Site de empregos A"),
+    ...
+]
+```
 
-| Ficheiro | Para que serve |
+## Organização do código
+
+| Ficheiro | Função |
 |---|---|
 | `main.py` | Arranca a aplicação e trata da interface |
-| `dados.py` | Ofertas de exemplo (mais tarde, leitura/escrita em CSV/JSON) |
+| `dados.py` | Ofertas de exemplo (mais tarde, leitura e escrita em ficheiro) |
 | `pesquisa.py` | Pesquisa por cargo e filtros por localização e área |
-| `empregos.py` | Listagem das ofertas e detalhes de cada uma |
 
 ## Como executar
 
-É preciso ter o Python 3 instalado.
+Requisitos: Python 3 (o Tkinter já vem incluído).
 
 ```bash
+git clone https://github.com/TitigamerYT/Anuncios-de-emprego.git
+cd Anuncios-de-emprego
 python main.py
 ```
 
-Por agora não há dependências externas (ver `requirements.txt`).
+Nesta fase não há dependências externas. As bibliotecas usadas no scraping
+serão adicionadas ao `requirements.txt`.
 
-## Limitações e riscos
+## Riscos previstos
 
-Para já só existe o esqueleto do código, com dados de exemplo.
+| Risco | Como vamos lidar |
+|---|---|
+| Limites e bloqueios dos sites | Pausas entre pedidos e respeito pelo `robots.txt` |
+| Mudanças na estrutura HTML | Tratamento de exceções (`try/except`) |
+| Anúncios com dados em falta | Valor por omissão: "Não indicado" |
+| Falhas de internet | Cópia dos dados guardada em ficheiro local |
 
-Riscos que prevemos com o scraping:
-- os sites podem mudar a estrutura das páginas;
-- os sites podem bloquear pedidos seguidos (vamos usar pausas entre pedidos);
-- alguns anúncios podem vir com dados em falta;
-- cada site mostra os dados de forma diferente, por isso temos de os converter para o mesmo formato.
+## Estado atual
+
+Entrega 1: proposta, desenho dos ecrãs, estrutura dos dados e esqueleto do código.
+As funções ainda não estão implementadas.
